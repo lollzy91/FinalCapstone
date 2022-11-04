@@ -13,3 +13,6 @@ export const addUser = (user) => ({
 export const deleteUser = () => ({
     type: ActionTypes.DELETE_USER
 })
+export const checkUser =(user) =>({
+    type: ActionTypes.CHECK_USER
+})

@@ -12,6 +12,8 @@ export const User = (state = {
         case ActionTypes.DELETE_USER:
             return { ...state, id: null, username: '', authorities: [] }
 
+        case ActionTypes.CHECK_USER:
+            return {...state, username: action.payload.username}
         default:
             return state;
     }

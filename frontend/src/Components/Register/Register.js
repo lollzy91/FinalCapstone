@@ -2,6 +2,7 @@ import axios from 'axios'
 import {Component} from 'react'
 import {Link} from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl'
+import validator from 'validator'
 
 class Register extends Component{
 
@@ -24,11 +25,22 @@ class Register extends Component{
 
     handleSubmit = () => {
         const data = {username: this.state.username, password: this.state.password, confirmPassword: this.state.confirmPassword, role: 'USER'}
-        if(this.state.password === this.state.confirmPassword){
-            axios.post(baseUrl + "/register", data)
-        }else{
-            alert("Password and Confirm Password must match!!!")
+        if (validator.isStrongPassword(this.state.password, {
+            minLength: 8, minLowercase: 1,
+            minUppercase: 1, minNumbers: 1, minSymbols: 1
+          })) {
+            
+            if(this.state.password === this.state.confirmPassword){
+                axios.post(baseUrl + "/register", data)
+                //Redirect to login page from here / give response of register success 
+            }
+            else{
+                alert("Password and Confirm Password must match!!!")
+            }
         }
+            else {
+                alert('Password is not strong enough. Must have a minimum length of 8, 1 upper and lower case, 1 number, and 1 symbol.')
+              }
     }
 
     render(){

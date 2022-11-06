@@ -1,8 +1,9 @@
 import axios from 'axios'
 import {Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl'
 import validator from 'validator'
+import { Navigate, useNavigate } from 'react-router'
 
 class Register extends Component{
 
@@ -11,7 +12,8 @@ class Register extends Component{
         this.state = {
             username: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            email:'',
         }
         
     }
@@ -24,7 +26,7 @@ class Register extends Component{
     }
 
     handleSubmit = () => {
-        const data = {username: this.state.username, password: this.state.password, confirmPassword: this.state.confirmPassword, role: 'USER'}
+        const data = {username: this.state.username, password: this.state.password, confirmPassword: this.state.confirmPassword, email: this.state.email, role: 'USER'}
         if (validator.isStrongPassword(this.state.password, {
             minLength: 8, minLowercase: 1,
             minUppercase: 1, minNumbers: 1, minSymbols: 1
@@ -32,11 +34,11 @@ class Register extends Component{
             
             if(this.state.password === this.state.confirmPassword)
             {
-                if(axios.get(baseUrl+"/register").catch(error => console.log(error)))
-                    alert("Account already exist")
-                else
-                    axios.post(baseUrl + "/register", data)
-                //Redirect to login page from here / give response of register success 
+                if(axios.post(baseUrl + "/register", data)){
+                    alert("Success")
+                }
+                //Redirect to login page from here / give response of register success
+                
             }
             else{
                 alert("Password and Confirm Password must match!!!")
@@ -80,6 +82,16 @@ class Register extends Component{
                     class="form-control"
                     placeholder="Confirm Password"
                     v-model="user.password"
+                    onChange={this.handleInputChange}
+                    required
+                />
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="Email"
+                    v-model="user.email"
                     onChange={this.handleInputChange}
                     required
                 />

@@ -30,8 +30,12 @@ class Register extends Component{
             minUppercase: 1, minNumbers: 1, minSymbols: 1
           })) {
             
-            if(this.state.password === this.state.confirmPassword){
-                axios.post(baseUrl + "/register", data)
+            if(this.state.password === this.state.confirmPassword)
+            {
+                if(axios.get(baseUrl+"/register").catch(error => console.log(error)))
+                    alert("Account already exist")
+                else
+                    axios.post(baseUrl + "/register", data)
                 //Redirect to login page from here / give response of register success 
             }
             else{

@@ -35,7 +35,7 @@ class Register extends Component{
             if(this.state.password === this.state.confirmPassword)
             {
                 if(axios.post(baseUrl + "/register", data)){
-                    alert("Success")
+                    alert("Registration Successful")
                 }
                 //Redirect to login page from here / give response of register success
                 

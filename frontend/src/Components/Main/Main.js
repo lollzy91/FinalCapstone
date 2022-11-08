@@ -3,6 +3,7 @@ import {Switch, Route, Redirect, Link} from 'react-router-dom'
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import Home from '../Home/Home'
+import EventList from '../EventList/EventList'
 import {addToken, deleteUser} from '../../Redux/actionCreators'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
@@ -35,6 +36,7 @@ class Main extends Component {
                 {this.props.token.token !== undefined ?
                         <div>
                             <Link to='/home'>Home | </Link>
+                            <Link to='/events'>Events | </Link>
                             <Link to='/login' onClick={this.handleLogout}>logout</Link> 
                             <Redirect to='/home'/>
 
@@ -45,8 +47,9 @@ class Main extends Component {
                 <Switch>
                     <Route path='/login' component={() => <Login/>}/>
                     <Route path='/register'component={() => <Register/>}/>
+                    <Route path ='/evets' component={() => <EventList />} />
                     <Route path='/home' component={this.props.token.token !== undefined ? () => <Home/> : null}/>
-                    <Redirect to='/login'/>
+                    
                 </Switch>
             </div>
         )

@@ -1,9 +1,9 @@
 import axios from 'axios'
 import {Component} from 'react'
-import {Link, Redirect} from 'react-router-dom'
 import { baseUrl } from '../../Shared/baseUrl'
 import validator from 'validator'
-import { Navigate, useNavigate } from 'react-router'
+import {Link} from 'react-router-dom'
+import "./registerCSS.css"
 
 class Register extends Component{
 
@@ -34,11 +34,15 @@ class Register extends Component{
             
             if(this.state.password === this.state.confirmPassword)
             {
-                if(axios.post(baseUrl + "/register", data)){
-                    alert("Registration Successful")
-                }
+                    axios.post(baseUrl + "/register", data).then(response => {
+                        //if (response.data == 201)
+                           // alert("Account Created")
+                    })
+                    .catch(function (error) {
+                        if(error.response)   
+                            alert('User already exist') 
+                        })
                 //Redirect to login page from here / give response of register success
-                
             }
             else{
                 alert("Password and Confirm Password must match!!!")
@@ -51,52 +55,68 @@ class Register extends Component{
 
     render(){
         return(
-            <div>
-                <h1>Create Account</h1>
-                <label class="sr-only">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    class="form-control"
-                    placeholder="Username"
-                    v-model="user.username"
-                    onChange={this.handleInputChange}
-                    required
-                />
-                <label class="sr-only">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    class="form-control"
-                    placeholder="Password"
-                    v-model="user.password"
-                    onChange={this.handleInputChange}
-                    required
-                />
-                <input
-                    type="password"
-                    id="password-confirm"
-                    name="confirmPassword"
-                    class="form-control"
-                    placeholder="Confirm Password"
-                    v-model="user.password"
-                    onChange={this.handleInputChange}
-                    required
-                />
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    class="form-control"
-                    placeholder="Email"
-                    v-model="user.email"
-                    onChange={this.handleInputChange}
-                    required
-                />
-                <Link to="/login">Have an account?</Link>
-                <button type="submit" onClick={this.handleSubmit}>Sign in</button>
+            <div className='Base'>
+                <div className="header">Create Account</div>
+                    <div className="content">
+                        <div className="form">
+                            <div className = 'form-group'>
+                                <label class="sr-only">Username</label>
+                                    <input
+                                        type="text"
+                                        id="username"
+                                        name="username"
+                                        class="form-control"
+                                        placeholder="Username"
+                                        v-model="user.username"
+                                        onChange={this.handleInputChange}
+                                        required
+                                    />
+                            </div>
+                            <div className = 'form-group'>
+                                <label class="sr-only">Password</label>
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        class="form-control"
+                                        placeholder="Password"
+                                        v-model="user.password"
+                                        onChange={this.handleInputChange}
+                                        required
+                                    />
+                            </div>
+                            <div className = 'form-group'>
+                                <label class="sr-only">Confirm Password</label>
+                                    <input
+                                        type="password"
+                                        id="password-confirm"
+                                        name="confirmPassword"
+                                        class="form-control"
+                                        placeholder="Confirm Password"
+                                        v-model="user.password"
+                                        onChange={this.handleInputChange}
+                                        required
+                                    />
+                            </div>
+                            <div className = 'form-group'>
+                                <label class="sr-only">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        class="form-control"
+                                        placeholder="Email"
+                                        v-model="user.email"
+                                        onChange={this.handleInputChange}
+                                        required
+                                    />
+                            </div>
+                        </div>
+                    </div>
+                <div className='SubmitButton'>
+                    <button type="submit" onClick={this.handleSubmit}>Register</button>
+                    <Link to="/login">Have an account?</Link>
+                </div>
             </div>
         )
     }

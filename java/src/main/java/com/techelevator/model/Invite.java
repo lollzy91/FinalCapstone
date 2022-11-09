@@ -2,7 +2,7 @@ package com.techelevator.model;
 
 
 public class Invite {
-
+/*
     private int inviteId;
     private int senderId;
     private int receiverId;
@@ -54,4 +54,6 @@ public class Invite {
     public String toString() {
         return null;
     }
+    
+ */
 }

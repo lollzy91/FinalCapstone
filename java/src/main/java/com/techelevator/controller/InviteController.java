@@ -10,10 +10,10 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "")
+//@RequestMapping(value = "")
 public class InviteController {
 
-    private InviteDao inviteDao;
+ /*   private InviteDao inviteDao;
 
 
     @GetMapping(value = "")
@@ -39,5 +39,5 @@ public class InviteController {
         return inviteDao.getInviteById(inviteId);
     }
 
-
+*/
 }

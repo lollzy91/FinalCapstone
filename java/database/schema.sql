@@ -39,6 +39,7 @@ CREATE TABLE invites(
 	invite_id int NOT NULL,
 	sender_id int NOT NULL,
 	receiver_id int NOT NULL,
+    location text NOT NULL,
 	event_date timestamp
 );
 
@@ -47,5 +48,5 @@ INSERT INTO users (username,password_hash, email, role) VALUES ('user','$2a$08$U
 INSERT INTO users (username,password_hash, email, role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','admin@email.com','ROLE_ADMIN');
 INSERT INTO restaurants(restaurant_name, categories, address, open_hour, close_hour, phone)
 VALUES ('Food Place', 'Food','123 Food St', '08:00', '20:00', '1234567890');
-INSERT INTO invites(invite_id, sender_id, receiver_id, event_date) VALUES (1,1,2, '2022-11-09');
+INSERT INTO invites(invite_id, sender_id, receiver_id, location, event_date) VALUES (1,1,2,'Mountains', '2022-11-09');
 COMMIT TRANSACTION;

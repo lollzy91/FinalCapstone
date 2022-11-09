@@ -1,10 +1,9 @@
 import {Link} from 'react-router-dom'
+import SearchBar from '../SearchBar/SearchBar';
 
 function Home(props) {
     return(
-        <div>
-            You must be authorized to see this page.
-        </div>
+        <SearchBar />
     )
 }
 

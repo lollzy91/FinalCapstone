@@ -1,3 +1,4 @@
+/*
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -20,7 +21,7 @@ export default function EventInvited({event})
                                         </CardImgOverlay>
                                 </Link>
                             </Card>  
-                            */}       
+                            }       
                             <tr>
                                 <th>Event name / ID</th>
                                 <th>Event orgin</th>
@@ -47,4 +48,4 @@ export default function EventInvited({event})
         //List events with cards or similar
         //Each one selected routes to specific ID of event (See card)
         //Alert when time is passed
-}
+} */

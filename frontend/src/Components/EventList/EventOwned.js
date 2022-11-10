@@ -1,3 +1,5 @@
+/*
+
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
@@ -20,7 +22,7 @@ export default function EventOwned({event})
                                         </CardImgOverlay>
                                 </Link>
                             </Card>  
-                            */}       
+                            }       
                             <tr>
                                 <th>Event name / ID</th>
                                 <th>Event orgin</th>
@@ -47,3 +49,4 @@ export default function EventOwned({event})
         //Each one selected routes to specific ID of event
         //Changes to finale page after time
 }
+*/

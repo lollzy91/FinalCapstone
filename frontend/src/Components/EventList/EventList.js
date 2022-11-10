@@ -1,3 +1,5 @@
+/*
+
 import EventOwned from "./EventOwned"
 import EventInvited from "./EventInvited"
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
@@ -44,4 +46,4 @@ function RenderInvitedList({page, onclick})
 }
 
 
-export default EventList
+export default EventList */

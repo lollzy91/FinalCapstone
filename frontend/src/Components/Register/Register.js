@@ -35,14 +35,11 @@ class Register extends Component{
             if(this.state.password === this.state.confirmPassword)
             {
                     axios.post(baseUrl + "/register", data).then(response => {
-                        response.json().then(response =>{
-                            if(response.ok)
-                                alert("Account Created")
-                        })
+                            alert("Account Created")
                     })
                     .catch(function (error) {
                         if(error.response)   
-                            alert('User already exist') 
+                            alert('Username or Email already exist') 
                         })
                 //Redirect to login page from here / give response of register success
             }

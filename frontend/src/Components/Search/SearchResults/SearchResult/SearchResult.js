@@ -20,8 +20,10 @@ export function SearchResult(props) {
                 <p>{b.price} {tags}</p>
             </div>
             <div className={styles['contact-info']}>
-                <p>{b.phone}</p>
+            <p>{b.phone} </p>
+                <button>Call to Order</button>
                 {addressLines}
+                <button>Add to Event</button>
             </div>
         </div>
     )

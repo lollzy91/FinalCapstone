@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.techelevator.model.EmailAlreadyExistsException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -25,6 +26,11 @@ public class JdbcUserDao implements UserDao {
     @Override
     public int findIdByUsername(String username) {
         return jdbcTemplate.queryForObject("select user_id from users where username = ?", int.class, username);
+    }
+
+    @Override
+    public String findEmail(String email) {
+        return jdbcTemplate.queryForObject("select email from users where email = ?", String.class, email);
     }
 
     @Override
@@ -60,6 +66,16 @@ public class JdbcUserDao implements UserDao {
             }
         }
         throw new UsernameNotFoundException("User " + username + " was not found.");
+    }
+
+    @Override
+    public User findByEmail(String email) throws EmailAlreadyExistsException {
+        for (User user : this.findAll()) {
+            if( user.getEmail().toLowerCase().equals(email.toLowerCase())) {
+                return user;
+            }
+        }
+        throw new UsernameNotFoundException("Email " + email + " was not found.");
     }
 
     @Override

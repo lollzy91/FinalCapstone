@@ -36,10 +36,10 @@ CREATE TABLE restaurants(
 );
 
 CREATE TABLE invites(
-	invite_id int NOT NULL,
+	invite_id serial NOT NULL,
 	sender_id int NOT NULL,
 	receiver_id int NOT NULL,
-    location text NOT NULL,
+    location varchar NOT NULL,
 	event_date timestamp
 );
 

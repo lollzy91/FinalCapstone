@@ -2,42 +2,29 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.InviteDao;
 import com.techelevator.model.Invite;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin
 @RestController
-//@RequestMapping(value = "")
+@PreAuthorize("isAuthenticated()")
+@RequestMapping(value = "/invites")
 public class InviteController {
+    @Autowired
+    private InviteDao inviteDao;
 
- /*   private InviteDao inviteDao;
-
-
-    @GetMapping(value = "")
-    public List<Invite> getInvitesBySenderId(@PathVariable Integer sender_id) throws Exception {
-        List<Invite> invites = null;
-        invites = inviteDao.SentInvitesByUserId(sender_id);
-        return invites;
+    public InviteController(InviteDao inviteDao) {
+        this.inviteDao = inviteDao;
     }
 
-    @PostMapping(value = "")
-    public int createInvite(@RequestBody Invite invite) {
-        int invite_id=inviteDao.createInvite(invite);
-        return invite_id;
-    }
-
-    @PutMapping(value = "")
-    public void updateInviteDate(@RequestBody Invite invite) {
-        inviteDao.updateInvite(invite);
-    }
-
-    @GetMapping(value = "")
-    public Invite getInviteById(@PathVariable Integer inviteId) throws Exception {
-        return inviteDao.getInviteById(inviteId);
-    }
-
-*/
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Invite> getAllInvites(Principal principal){ return inviteDao.getAllInvites(principal.getName());}
+    @RequestMapping(method = RequestMethod.POST)
+    public void inviteOut(@RequestBody Invite invite){inviteDao.inviteOut(invite);}
 }

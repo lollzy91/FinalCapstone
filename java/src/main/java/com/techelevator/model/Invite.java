@@ -1,13 +1,15 @@
 package com.techelevator.model;
 
 
-public class Invite {
-/*
+import java.util.Date;
+
+public class Invite  {
+
     private int inviteId;
     private int senderId;
     private int receiverId;
     private String location;
-    private String eventDate;
+    private Date eventDate;
 
 
     public int getInviteId() {
@@ -26,11 +28,11 @@ public class Invite {
         this.senderId = senderId;
     }
 
-    public String getEventDate() {
+    public Date getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(String eventDate) {
+    public void setEventDate(Date eventDate) {
         this.eventDate = eventDate;
     }
     public int getReceiverId() {
@@ -55,5 +57,5 @@ public class Invite {
         return null;
     }
     
- */
+
 }

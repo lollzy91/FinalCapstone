@@ -1,26 +1,33 @@
-import React from 'react';
-import styles from './Home.module.css';
-import { SearchBar } from '../SearchBar/SearchBar';
-import { SearchSuggestions } from './SearchSuggestions/SearchSuggestions';
-//import useReactRouter from 'use-react-router';
+import {Component} from 'react';
+import apiData from '../hooks/yelp-api/api';
+import SearchBar from '../SearchBar/SearchBar';
+import BusinessList from '../Business/BusinessList';
 
-export default function Home() {
-  //const { history } = useReactRouter();
+export default class Home extends Component {
+  constructor(props) {
+    super(props);
 
-  function search(term, location) { //Need to fix commented items to work with react router (will not allow run)
-    //const urlEncodedTerm = encodeURI(term);
-    //const urlEncodedLocation = encodeURI(location);
-    //history.push(
-      //`/search?find_desc=${urlEncodedTerm}&find_loc=${urlEncodedLocation}`
-    //);
+    this.state = {
+      businesses: []
+    };
+
+    this.searchData = this.searchData.bind(this);
   }
 
-  return (
-    <div className={styles.landing}>
-      <div className={styles['search-area']}>
-        <SearchBar search={search} />
-        <SearchSuggestions />
-      </div>
-    </div>
-  );
+  searchData(term, location) {
+      apiData.search(term, location).then(businesses => {
+      this.setState({businesses: businesses});
+    });
+  }
+
+  render() {
+    return (
+       <div className='Content-Container'>
+        <SearchBar searchYelp={this.searchData} />
+        <BusinessList businesses={this.state.businesses} />
+        </div>
+    );
+  }
 }
+
+

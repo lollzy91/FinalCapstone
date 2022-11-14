@@ -26,7 +26,7 @@ public class JdbcInviteDao implements InviteDao{
         }
         return allInvites;
     };
-
+    @Override
     public void inviteOut(Invite invite) {
         String sql = "START TRANSACTION; " +
                 "INSERT INTO invites (sender_id, receiver_id, location, event_date) " +

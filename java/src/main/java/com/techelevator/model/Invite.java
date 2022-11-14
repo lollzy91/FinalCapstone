@@ -52,9 +52,24 @@ public class Invite  {
         this.location = location;
     }
 
+    public Invite() { }
+
+    public Invite( int senderId, String location, Date eventDate) {
+
+        this.senderId = senderId;
+        this.location = location ;
+        this.eventDate= eventDate ;
+    }
+
     @Override
     public String toString() {
-        return null;
+
+        return "Invite{" +
+                "invite_id=" + inviteId +
+                ", sender_id=" + senderId +
+                ", event_date=" + eventDate +
+                ", location=" + location +
+                '}';
     }
     
 

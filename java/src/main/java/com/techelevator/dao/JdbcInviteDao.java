@@ -4,6 +4,7 @@ import com.techelevator.model.Invite;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -35,6 +36,44 @@ public class JdbcInviteDao implements InviteDao{
         jdbcTemplate.update(sql, invite.getSenderId(), invite.getReceiverId(), invite.getLocation(), invite.getEventDate());
 
     }
+
+    @Override
+    public int createInvite(Invite invite) {
+
+        return 0;
+    }
+
+    @Override
+    public void updateInvite(Invite invite) {
+        String sql = "update invites Set (sender_id, receiver_id, location, event_date)" +
+                "  VALUES (?,?,?,?) WHERE invite_id = ?";
+        jdbcTemplate.update(sql, invite.getSenderId(), invite.getEventDate(), invite.getInviteId());
+
+    }
+
+    @Override
+    public void deleteInvite(int inviteId) {
+        String sql = "DELETE FROM invites WHERE invite_id = ?";
+        jdbcTemplate.update(sql, inviteId);
+
+    }
+
+    @Override
+    public Invite getInviteById(@PathVariable int inviteId) throws Exception {
+        String sql = "SELECT * FROM invites WHERE invite_id = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, inviteId);
+        if (results.next()) {
+            return mapRowToInvite(results);
+        } else {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public List<Invite> SentInvitesByUserId(int senderId) throws Exception {
+        return null;
+    }
+
     private Invite mapRowToInvite(SqlRowSet results) {
 
         Invite invite = new Invite();

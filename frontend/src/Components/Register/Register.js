@@ -4,6 +4,7 @@ import { baseUrl } from '../../Shared/baseUrl'
 import validator from 'validator'
 import {Link} from 'react-router-dom'
 import "./registerCSS.css"
+import {Redirect} from 'react-router-dom'
 
 class Register extends Component{
 
@@ -35,7 +36,8 @@ class Register extends Component{
             if(this.state.password === this.state.confirmPassword)
             {
                     axios.post(baseUrl + "/register", data).then(response => {
-                            alert("Account Created")
+                        <Redirect to='/login' />
+                        alert("Account Created")
                     })
                     .catch(function (error) {
                         if(error.response)   

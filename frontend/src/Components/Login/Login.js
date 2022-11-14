@@ -38,7 +38,6 @@ class Login extends Component {
         catch(error)
         {
             alert("Password or Username is incorrect")
-            console.log(error)
         }
     }
 

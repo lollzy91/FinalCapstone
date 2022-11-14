@@ -1,12 +1,15 @@
 import {Component} from 'react'
-import {Switch, Route, Redirect, Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {addToken, deleteUser} from '../../Redux/actionCreators'
+
+import {Switch, Route, Link, Redirect} from 'react-router-dom'
+import { Navbar, Nav, Container } from 'react-bootstrap'
+import { withRouter } from 'react-router-dom'
+
 import Login from '../Login/Login'
 import Register from '../Register/Register'
 import Home from '../Home/Home'
-import EventList from '../EventList/EventList'
-import {addToken, deleteUser} from '../../Redux/actionCreators'
-import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import Header from '../Header/Header'
 
 const mapStateToProps = state => {
     return {
@@ -21,7 +24,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Main extends Component {
-    
 
     handleLogout = () => {
         this.props.addToken("")
@@ -30,25 +32,28 @@ class Main extends Component {
 
     render(){
         return(
-            <div>
+            <div className='Main-Body'>
                 {this.props.token.token !== undefined ?
-                        <div>
-                            <Link to='/home'>Home | </Link>
-                            <Link to='/events'> Events | </Link>
-                            <Link to='/login' onClick={this.handleLogout}>logout</Link> 
-                            
-                            <Redirect to='/home'/>
-
-                        </div>  
-                    : 
-                        <Link to='/login'>Home | </Link>
+                    <div className='NavBar'>
+                        <Navbar collapseOnSelect fixed='static-top' expand='sm' bg='dark' variant='dark'>
+                                <Container className='Container'>  
+                                    <Nav>
+                                        <Nav.Link as={Link} to='/login' onClick={this.handleLogout}>Logout</Nav.Link> 
+                                        <Nav.Link as={Link} to='/home'>Home</Nav.Link>
+                                        <Nav.Link as={Link} to='/invite'>Invitations</Nav.Link>
+                                        <Redirect to='/home' />
+                                    </Nav>
+                                </Container>
+                        </Navbar>
+                    </div>
+                    : //I do not know why this crashes the program if not here as is....so confused
+                    <Header />  
+//Header is used to keep the navbar at the top when you first visit website If you switch to login it will cause interesting UI issues
                 }
                 <Switch>
                     <Route path='/login' component={() => <Login/>}/>
                     <Route path='/register'component={() => <Register/>}/>
-                    <Route path ='/events' component={() => <EventList />} />
-                    <Route path='/home' component={this.props.token.token !== undefined ? () => <Home/> : null}/>
-                    <Redirect to='/login'/>
+                    <Route path='/home' component={this.props.token.token !== undefined ? () => <Home /> : null} />
                 </Switch>
             </div>
         )

@@ -1,15 +1,17 @@
 package com.techelevator.model;
 
-
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.sql.Date;
+import java.util.List;
 
 public class Invite  {
 
     private int inviteId;
     private int senderId;
-    private int receiverId;
-    private String location;
-    private Date eventDate;
+    private List<User> receivers;
+    private List<Restaurant> restaurants;
+    private Timestamp eventDate;
 
 
     public int getInviteId() {
@@ -28,37 +30,38 @@ public class Invite  {
         this.senderId = senderId;
     }
 
-    public Date getEventDate() {
+    public Timestamp getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
+    public void setEventDate(Timestamp eventDate) {
         this.eventDate = eventDate;
     }
-    public int getReceiverId() {
-        return receiverId;
+    public List<User> getReceiverId() {
+        return receivers;
     }
 
-    public void setReceiverId(int receiverId) {
-        this.receiverId = receiverId;
+    public void setReceiverId(List<User> receivers) {
+        this.receivers = receivers;
     }
 
 
-    public String getLocation() {
-        return location;
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setRestaurants(List<Restaurant> restaurants) {
+        this.restaurants = restaurants;
     }
 
     public Invite() { }
 
-    public Invite( int senderId, String location, Date eventDate) {
-
+    public Invite(int inviteId, int senderId, List<User> receivers, List<Restaurant> restaurants, Timestamp eventDate) {
+        this.inviteId = inviteId;
         this.senderId = senderId;
-        this.location = location ;
-        this.eventDate= eventDate ;
+        this.receivers = receivers;
+        this.restaurants = restaurants;
+        this.eventDate = eventDate;
     }
 
     @Override
@@ -68,7 +71,7 @@ public class Invite  {
                 "invite_id=" + inviteId +
                 ", sender_id=" + senderId +
                 ", event_date=" + eventDate +
-                ", location=" + location +
+                ", location=" + restaurants +
                 '}';
     }
     

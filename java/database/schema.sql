@@ -1,7 +1,9 @@
 BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS restaurant_invite;
 DROP TABLE IF EXISTS restaurants;
+DROP TABLE IF EXISTS users_invite;
 DROP TABLE IF EXISTS invites;
 DROP SEQUENCE IF EXISTS seq_user_id;
 
@@ -20,33 +22,29 @@ CREATE TABLE users (
 	role varchar(50) NOT NULL,
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
-/*
-    Each available restaurant includes the name, the type of establishment, an address, and the hours of operation.
-*/
-CREATE TABLE restaurants(
-    restaurant_id serial NOT NULL,
-	yelp_id varchar,
-    restaurant_name varchar NOT NULL,
-    categories varchar,
-    address varchar NOT NULL,
-    open_hour time,
-    close_hour time,
-    phone varchar
 
+CREATE TABLE restaurant_invite(
+    event_id int Not NULL,
+    yelp_id varchar Not Null,
+    thumbs_up int NOT NULL,
+    thumbs_down int NOT NULL
+
+);
+
+CREATE TABLE users_invite(
+    event_id int NOT NULL,
+    receiver_id int NOT NULL
 );
 
 CREATE TABLE invites(
 	invite_id serial NOT NULL,
 	sender_id int NOT NULL,
-	receiver_id int NOT NULL,
-    location varchar NOT NULL,
-	event_date timestamp
+	event_date timestamp,
+	CONSTRAINT PK_invite PRIMARY KEY (invite_id)
 );
 
 
 INSERT INTO users (username,password_hash, email, role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'user@email.com','ROLE_USER');
 INSERT INTO users (username,password_hash, email, role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','admin@email.com','ROLE_ADMIN');
-INSERT INTO restaurants(restaurant_name, categories, address, open_hour, close_hour, phone)
-VALUES ('Food Place', 'Food','123 Food St', '08:00', '20:00', '1234567890');
-INSERT INTO invites(invite_id, sender_id, receiver_id, location, event_date) VALUES (1,1,2,'Mountains', '2022-11-09');
-COMMIT TRANSACTION;
+
+COMMIT;

@@ -29,16 +29,18 @@ public class JdbcInviteDao implements InviteDao{
     @Override
     public List<Invite> getAllInvites(String userName) {
         List<Invite> allInvites = new ArrayList();
-        String sql = "SELECT * FROM invites WHERE sender_id = " +
-                "(SELECT user_id FROM users WHERE username = ?)";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName);
+        String sql = "SELECT * FROM invites " +
+                "JOIN users_invite ON invites.invite_id = users_invite.event_id " +
+                "WHERE invites.sender_id = (SELECT user_id FROM users WHERE username = ?) OR " +
+                "users_invite.receiver_id = (SELECT user_id FROM users WHERE username = ?)";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName, userName);
         while(results.next()){
             allInvites.add(mapRowToInvite(results));
         }
         return allInvites;
     };
 
-    public List<Restaurant> getRestaurants(int eventId){
+    private List<Restaurant> getRestaurants(int eventId){
         List<Restaurant> restaurants = new ArrayList<>();
         String sql = "SELECT * FROM restaurant_invite WHERE event_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, eventId);
@@ -47,7 +49,8 @@ public class JdbcInviteDao implements InviteDao{
         }
         return restaurants;
     }
-    public List<User> getRecipients(int eventId){
+
+    private List<User> getRecipients(int eventId){
       List<User> recipients = new ArrayList<>();
       String sql = "SELECT * FROM users WHERE user_id IN " +
               "(SELECT receiver_id FROM users_invite WHERE event_id = ?)";
@@ -86,41 +89,27 @@ public class JdbcInviteDao implements InviteDao{
 
     }
 
-    @Override
-    public int createInvite(Invite invite) {
-
-        return 0;
-    }
 
     @Override
     public void updateInvite(Invite invite) {
-        String sql = "update invites Set (sender_id, receiver_id, location, event_date)" +
-                "  VALUES (?,?,?,?) WHERE invite_id = ?";
-        jdbcTemplate.update(sql, invite.getSenderId(), invite.getEventDate(), invite.getInviteId());
-
-    }
-
-    @Override
-    public void deleteInvite(int inviteId) {
-        String sql = "DELETE FROM invites WHERE invite_id = ?";
-        jdbcTemplate.update(sql, inviteId);
-
-    }
-
-    @Override
-    public Invite getInviteById(@PathVariable int inviteId) throws Exception {
-        String sql = "SELECT * FROM invites WHERE invite_id = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, inviteId);
-        if (results.next()) {
-            return mapRowToInvite(results);
-        } else {
-            throw new Exception();
+        String sql = "update invites Set event_date = ? WHERE invite_id = ?";
+        jdbcTemplate.update(sql, invite.getEventDate(), invite.getInviteId());
+        for(Restaurant restaurant : invite.getRestaurants()){
+            String sql2 = "UPDATE restaurant_invite SET thumbs_up = ?, thumbs_down = ? " +
+                    "WHERE event_id = ? AND yelp_id = ?";
+            jdbcTemplate.update(sql2, restaurant.getThumbsUp(), restaurant.getThumbsDown(), invite.getInviteId(),  restaurant.getYelpId());
         }
+
     }
 
-    @Override
-    public List<Invite> SentInvitesByUserId(int senderId) throws Exception {
-        return null;
+    public List<User> getUsers(String userName){
+        List<User> allUsers = new ArrayList<>();
+        String sql = "SELECT * FROM users WHERE NOT username = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userName);
+        while(results.next()){
+            allUsers.add(mapRowToUser(results));
+        }
+        return allUsers;
     }
 
     private Invite mapRowToInvite(SqlRowSet results) {

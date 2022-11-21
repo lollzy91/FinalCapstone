@@ -11,6 +11,8 @@ import Register from '../Register/Register'
 import Home from '../Home/Home'
 import Header from '../Header/Header'
 
+import '../Main/main.css'
+
 const mapStateToProps = state => {
     return {
         token: state.token,
@@ -35,7 +37,7 @@ class Main extends Component {
             <div className='Main-Body'>
                 {this.props.token.token !== undefined ?
                     <div className='NavBar'>
-                        <Navbar collapseOnSelect fixed='static-top' expand='sm' bg='dark' variant='dark'>
+                        <Navbar>
                                 <Container className='Container'>  
                                     <Nav>
                                         <Nav.Link as={Link} to='/login' onClick={this.handleLogout}>Logout</Nav.Link> 

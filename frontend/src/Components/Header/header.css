@@ -1,0 +1,9 @@
+.NavBar
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background:white;
+    font-weight: bold;
+    font-style: italic;
+}

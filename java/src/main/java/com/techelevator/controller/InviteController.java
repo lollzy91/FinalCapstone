@@ -32,5 +32,7 @@ public class InviteController {
     public void updateInvite(@RequestBody Invite invite){inviteDao.updateInvite(invite);}
 
     @RequestMapping(path = "/getUsers", method = RequestMethod.GET)
-    public List<User> getAllUsers(Principal principal){return inviteDao.getUsers(principal.getName());}
+    public List<User> getAllUsers(Principal principal){return inviteDao.getUsers(principal.getName());
+    
+    }
 }

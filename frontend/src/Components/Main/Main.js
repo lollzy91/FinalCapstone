@@ -10,6 +10,8 @@ import Login from '../Login/Login'
 import Register from '../Register/Register'
 import Home from '../Home/Home'
 import Header from '../Header/Header'
+import Invite from '../Invite/CreatorInvite'
+import CreatorInvite from '../Invite/CreatorInvite'
 
 const mapStateToProps = state => {
     return {
@@ -54,6 +56,7 @@ class Main extends Component {
                     <Route path='/login' component={() => <Login/>}/>
                     <Route path='/register'component={() => <Register/>}/>
                     <Route path='/home' component={this.props.token.token !== undefined ? () => <Home /> : null} />
+                    <Route path='/invite' component={() => <CreatorInvite/>}/>
                 </Switch>
             </div>
         )

@@ -1,9 +1,9 @@
-import {Component} from 'react'
+import {Component, useState} from 'react'
 import {connect} from 'react-redux'
 import {addToken, deleteUser} from '../../Redux/actionCreators'
 
 import {Switch, Route, Link, Redirect} from 'react-router-dom'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import { Navbar, Nav, Container} from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 
 import Login from '../Login/Login'
@@ -12,7 +12,9 @@ import Home from '../Home/Home'
 import Header from '../Header/Header'
 import CreatorInvite from '../Invite/CreatorInvite'
 
-import '../Main/main.css'
+
+
+import { RestarauntProvider } from '../hooks/yelp-api/RestaurantContext'
 
 const mapStateToProps = state => {
     return {
@@ -20,6 +22,7 @@ const mapStateToProps = state => {
         user: state.user
     }
 }
+
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -57,12 +60,21 @@ class Main extends Component {
                 <Switch>
                     <Route path='/login' component={() => <Login/>}/>
                     <Route path='/register'component={() => <Register/>}/>
+                    <RestarauntProvider >
                     <Route path='/home' component={this.props.token.token !== undefined ? () => <Home /> : null} />
                     <Route path='/invite' component={() => <CreatorInvite/>}/>
+                    </RestarauntProvider>
                 </Switch>
             </div>
         )
     }
 } 
+
+// export function Component1() {
+//     {const [businessId, setBusinessId] = useState ({
+//         businessName: " ",
+//         businessId: " "
+// });}
+//   };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

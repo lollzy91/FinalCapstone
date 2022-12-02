@@ -1,16 +1,24 @@
 import BusinessHours from './BusinessHours'
 import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+
+
 import {BEARER_TOKEN, API_BASE_URL} from '../hooks/yelp-api/config'
+import { useRestaraunt, useRestarauntUpdate } from '../hooks/yelp-api/RestaurantContext';
+
 
 /*
   The token can't be accessed from here so this function saves the restraunt info to an array of objects. 
   Another function in CreatorInvite will save it to the DB to create the request 
 */
-export const mapToArray = []
+ 
+
 
 
 export default function Business (props) {
+
+
+
   const [showDetails, setShowDetails] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [mondayStart, setMondayStart] = useState('Closed');
@@ -27,25 +35,14 @@ export default function Business (props) {
   const [saturdayEnd, setSaturdayEnd] = useState('Closed');
   const [sundayStart, setSundayStart] = useState('Closed');
   const [sundayEnd, setSundayEnd] = useState('Closed');
-  const [businsessName, setBusinessName] = useState ('');
-
-
-   const registerToDB = async() => {
-     mapToArray = [
-      {
-        businsessName: '',
-        address: '',
-        city: '',
-        state:'',
-        zipcode: ''
-    }
-
   
-  ]
-  setBusinessName(mapToArray.businsessName = this.props.businsessName)
-  console.log(this.businsessName)
-    
-}
+  
+   const restarauntArray = useRestaraunt();
+
+   const setRestarauntArray = useRestarauntUpdate();
+
+
+   
 
   const handleClick = async() => {
     setShowDetails(true) //....make this button toggle at some point
@@ -92,14 +89,16 @@ export default function Business (props) {
   } 
 
   
-
+/*Add onclick method back to registerToDb*/ 
 
   return (
       <div className="business">
       <div className="Header Bussiness-Name">{props.business.name}</div>
         <br/>
         <img src={props.business.imageSrc} alt='' className='business-image' />
-        <button onClick={registerToDB} className ='registerToDB'>Select Business</button>
+      
+        <button className ='businessSelect' onClick={setRestarauntArray}>Select Business</button>
+        {console.log(restarauntArray)}
         <button onClick={handleClick} className='view-more'>View More Details</button>
         <p>{props.business.transactions[0]} {props.business.transactions[1]} {props.business.transactions[2]}</p>
         <p>type: {props.business.category}</p>
@@ -119,3 +118,5 @@ export default function Business (props) {
       </div>
     )
 }
+
+

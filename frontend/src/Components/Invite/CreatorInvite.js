@@ -1,16 +1,23 @@
-import React, {Component, useState, useEffect} from "react";
+import React, {Component, useState, useEffect, useContext} from "react";
 import apiData from '../hooks/yelp-api/api';
 import axios from "axios";
 import {checkUser} from '../../Redux/actionCreators';
 import { baseUrl } from "../../Shared/baseUrl";
 import {connect} from "react-redux"
-import business, {mapToArray} from "../Business/Business";
+import business, {updatedObject} from "../Business/Business";
+
+import InviteForm from "./CreatorInviteForm";
+
+
 
 
 const mapStateToProps = state => {return {
     token: state.token,
     user: state.user
 }}
+
+
+
 
 const mapDispatchToProps = (dispatch) => ({
     
@@ -23,6 +30,9 @@ const mapDispatchToProps = (dispatch) => ({
 //         console.log(response)
 //     })
 
+
+
+
 class CreatorInvite extends Component {
     
     constructor(props) {
@@ -34,7 +44,6 @@ class CreatorInvite extends Component {
        }
 
        
-      
 /* returns a working request yayy!!*/
 
     //    componentDidMount() {
@@ -46,31 +55,13 @@ class CreatorInvite extends Component {
     //    } 
 
    
+    
  
 
     render () {
 return (
-
-        <div>
-            <p></p>
-            
-        <div className='Invite-container'>
-        <form>
-            <label for="Location">Location:</label>
-            <input type="text" id="location" name="location" 
-            />
-            <label for="eventDate">Event Date</label>
-            <input type="datetime-local" id="eventDate" name="eventDate" 
-            />
-            <button input type="submit" value="Submit" ></button>
-            
-        </form>
-     <div className='view-invites-container'>
-        <span > View Invites </span>
-     </div>
-    </div>
-        
-       
+<div>
+    <InviteForm />
     </div>
 );
     }

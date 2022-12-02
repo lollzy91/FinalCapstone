@@ -89,7 +89,7 @@ public class JdbcInviteDao implements InviteDao{
 
     }
 
-
+ 
     @Override
     public void updateInvite(Invite invite) {
         String sql = "update invites Set event_date = ? WHERE invite_id = ?";

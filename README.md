@@ -1,5 +1,3 @@
 # Final Capstone
 
-This directory contains all of the starter projects for the final capstone. The React starter project works with the Java project with a single configuration update that you can read about in the README.
-
-Each project contains instructions that provides information about the starting code and explains how to get started with the final capstone project.
+This Directory contains the code for our Final Merit America Project. Our team of 5 built a Restaurant invite app that allows you to invite other users to an array of restaurants at a specific date and time, then the invited users can vote on which restaurant to eat at. This application is built with HTML,CSS, Javascript, React on the front end and Spring, Java, and SQL on the backend.
